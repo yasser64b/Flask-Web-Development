@@ -19,4 +19,5 @@
 
 ### Beam Analysis
 
-<img src='https://github.com/yasser64b/Flask-Web-Development/blob/main/Myproject/static/profile_pics/beam_results.png'>
+<img src='https://github.com/yasser64b/Flask-Web-Development/blob/main/Myproject/static/profile_pics/beam_config.png'>
+
