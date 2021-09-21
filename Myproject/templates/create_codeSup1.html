@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <form class="form-group" method="POST">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {{ form.hidden_tag() }}
+
+     <div class="form-group">
+    <table class="table", style="color: black;">
+      <br>
+      <br>
+
+      <thead >
+        <tr>
+          <td> {{ form.sup1.label() }}</td>
+          <td> {{ form.sup1() }}</td>
+          <td> {{ form.code1.label() }}</td>
+          <td> {{ form.code1() }}</td>
+        </tr>
+      </thead>
+    </table>
+    <div class="d-grid gap-2">
+      {{ form.submit(class="btn btn-primary btn-lg") }}
+  </div>
+</div>
+
+{% endblock content %}

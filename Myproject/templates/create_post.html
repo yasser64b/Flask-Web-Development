@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <form class="form-group" method="POST">
+    <br>
+    <br>
+     {{ form.hidden_tag() }}
+
+     <div class="form-group">
+     {{ form.title.label(class="form-control-label") }}
+     {{ form.title(class="form-control form-control-lg ") }}
+     </div>
+     <div class="form-group">
+     {{ form.text.label(class="form-control-label") }}
+     {{ form.text(class="form-control form-control-lg") }}
+     </div>
+     <br>
+    <h1> Beam Properties: </h1>
+    <p style="color: red;">**All input data must be consistent with selected unit system**</p>
+    <table class="table", style="color: black;">
+      <thead >
+        <tr>
+          <td> {{ form.unit.label }}</td>
+          <td>{{ form.unit() }}</td>
+          <td>{{ form.E.label }}</td>
+          <td>{{ form.E() }}</td>
+          <td>{{ form.I.label }} </td>
+          <td>{{ form.I() }}</td>
+        </tr>
+      </thead>
+    </table>
+    
+    <h1> Beam configuration: </h1>
+    <table class="table">
+      <tbody>
+            <tr>
+              <td>{{ form.Node2.label}}</td>
+              <td><img src="../static/profile_pics/beam.JPG" width="200" ></td>
+              <td>{{ form.Node2() }}  </td>
+              <td>{{ form.support1_dof.label }}</td>                                     
+              <td><img src="../static/profile_pics/SupallL.jpg" width="50"> </td>                                     
+              <td>{{ form.support1_dof() }}</td>
+              <td>{{ form.support2_dof.label }}  </td>
+              <td> <img src="../static/profile_pics/SupAllR.png" width="50"> </td>
+              <td>{{ form.support2_dof() }}</td>
+            </tr>
+
+
+      </tbody>
+  </table>
+  
+  <h1 style="color: black;" align= 'left'> Add Loads on Beam:</h1>
+    <table class="table", style="color: black;">
+      <tbody>
+          <tr>
+              <td> {{ form.pointLoad.label}} </td>
+              <td>  {{ form.pointLoad() }}</td>
+              <td>{{ form.pointLoadLoc.label }} </td>
+              <td>{{ form.pointLoadLoc() }}</td>
+              <td> <img src="../static/profile_pics/pointload.JPG" width="50"> </td>
+            </tr>
+            <tr>
+              <td> {{ form.momentLoad.label }} </td>
+              <td> {{ form.momentLoad() }}</td>
+              <td> {{ form.momentLoadLoc.label }} </td>
+              <td> {{ form.momentLoadLoc() }}</td>
+              <td> <img src="../static/profile_pics/PNM.JPG" width="50"> </td>
+            </tr>
+            <tr>
+              <td>{{ form.distLoadBeg.label }} </td>
+              <td>{{ form.distLoadBeg() }}</td>
+              <td>{{ form.distLoadBegLoc.label }} </td>
+              <td>{{ form.distLoadBegLoc() }}</td>
+              <td> <img src="../static/profile_pics/dist.JPG" width="150"> </td>
+            </tr>
+            <tr>
+              <td>{{ form.distLoadEnd.label }} </td>
+              <td>{{ form.distLoadEnd() }}</td>
+              <td>{{ form.distLoadEndLoc.label }} </td>
+              <td>{{ form.distLoadEndLoc()}}</td>
+              <td> <img src="../static/profile_pics/dist.JPG" width="150"> </td>
+          </tr>
+      </tbody>
+  </table>
+  
+     <div class="d-grid gap-2">
+         {{ form.submit(class="btn btn-primary btn-lg") }}
+     </div>
+     <br>
+     <br>
+     <br>
+     
+  </form>
+</div>
+
+<script>
+let sup1_select=document.getElementById('support1_dof')
+let sup2_select=document.getElementById('support2_dof')
+
+sup1_select.onchange = function(){
+  sup1 =sup1_select.value;
+  // alert(sup1);
+  fetch('/support2_dof/'+ sup1).then(function(response){
+    response.json().then(function(data){
+      let optionHTML='';
+      for (let sup2 of data.support2_dofs){
+            optionHTML += '<option value="' + sup2.code2 + '">'+ sup2.sup2+'</option>'
+      }
+      sup2_select.innerHTML=optionHTML;
+    })
+  });
+}
+
+</script>
+
+
+{% endblock content %}

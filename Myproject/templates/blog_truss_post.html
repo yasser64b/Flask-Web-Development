@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  {%set rus=trusses %}
+  <h1>{{ post.title }}</h1>
+  <h2>Written by: {{post.author.username}}</h2>
+  <h3>Published: {{ post.date.strftime('%B %d, %Y') }}</h3>
+  <p>{{post.text}}</p>
+
+  <div style="color: blue;" align='left' class="input-group input-group-sm mb-3">
+    <br>
+      <p><img src="data:image/png;base64,{{rus.result_img}}"\></p>
+  
+        <!-- TAble for properties -->
+        <table class="table", style="color: black;">
+          <thead>
+            <tr>
+              <th scope="col">Span Length ({{rus.unit[8:10]}})</th>
+              <th scope="col">Truss Height ({{rus.unit[8:10]}})</th>
+              <th scope="col">Cross-Section (A) ({{rus.unit[8:10]}}^2)</th>
+              <th scope="col">Modulus of Elasticity ({{rus.unit[3:7]}}/{{rus.unit[8:10]}}^2)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{rus.span_width}}</td>
+              <td>{{rus.truss_height}}</td>
+              <td>{{rus.A}}</td>
+              <td>{{rus.E}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Table for results -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col"> K factor </th>
+              <th scope="col">Buckling load, 1st mode ({{rus.unit[3:7]}})</th>
+              <th scope="col">Buckling load, 2nd mode ({{rus.unit[3:7]}})</th>
+              <th scope="col">Buckling load, 3rd mode({{rus.unit[3:7]}})</th>
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+          </table>
+                                       
+          <a href="{{ url_for('truss_posts.blog_post', blog_post_id=post.id) }}" class="btn btn-primary">Read Blog Post</a>
+        </div>
+
+
+        </div>
+
+ 
+   <!-- {% if post.author == current_user %}
+     <div>
+       <a class="btn btn-secondary" href="{{ url_for('truss_posts.update', blog_post_id=post.id) }}">Update</a>
+       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#del_modal">Delete</button>
+     </div>
+   {% endif %} -->
+</div>
+
+
+
+
+  <!-- Modal for Pop Up -->
+  <!-- {# https://getbootstrap.com/docs/4.1/components/modal/ #}
+  {# Notice how the link with the id to the button above! #}
+  <div class="modal" tabindex="-1" role="dialog" id="del_modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Post Pop up Modal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this blog post?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <form action="{{ url_for('truss_posts.delete_post', blog_post_id=post.id) }}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+{% endblock content %} 

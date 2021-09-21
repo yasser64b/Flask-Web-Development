@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br>
+<div class="jumbotron">
+  <h1 style="color: blue;">How to use the tools available in this website:</h1>
+  <hr>
+  <ol>
+    <li> Create an account (it is free)</li>
+    <li> Sign in</li>
+    <li> Select the tool from navbar, a page will pop up</li>
+    <li> Input the systems parameters and then submit</li>
+    <li> You will see your analyses results on the home page and your personal page</li>
+    <li> Done! try another analysis</li>
+  </ol>
+</div>
+<div class="jumbotron">
+
+  <h1 style="color: blue;" > Available analyses:</h1>
+  <hr>
+  <h2 style="color: rgb(240, 25, 193);">Trusses</h2>
+  <h4>Truss types available to analyze: </h4>
+  <ol>
+    <li> Pratt (Bridge)</li>
+    <li> Pratt  (Roof)</li>
+    <li> Howe  (Bridge)</li>
+    <li> Howe  (Roof)</li>
+    <li> Warren  (Bridge)</li>   
+  </ol>
+  <h4>Inputs:</h4>
+  <ul>
+    <li>Node Numbering:</li>
+    <p>As shown in the following image, nodes are numbered counter-clock wise</p>
+    <img align='center' src="../static/profile_pics/truss.png" alt="">
+    <br>
+    <br>
+    <li>Element numbering:</li>
+    <p>The following images show the examples of element numbering</p>
+    <img src="../static/profile_pics/truss_elem.png" alt="">
+    <br>
+    <br>
+    <li>Panels: </li>
+    <p>Every Bridge or Roof Truss are consisted of number of pannels that need to be imput to the form. </p>
+    <li>Modulus of Elsticity (E): </li>
+    <p> Based on material (Steel, Concrete, etc.) and selected unit system input E value. </p>
+    <li>Members' cross section area (A): </li>
+    <p> Input the cross section area of the truss members. If you want to see the member loading results on nu-defromed strcuture put a large value for A. </p>
+    <li>Supports:</li>
+    <p>Select support types (pinned or roller) for the structure , chack the system for instability</p>
+    <li>Loading :</li>
+    <p>Add a value for point loading applied to a node. The numde number is identified based on provided numbring system. After one analysis you will see the numbered structure</p>
+    <li>Example of final results:</li>
+    <img align='center' src="../static/profile_pics/truss_results.png" alt="">
+  </ul>
+  <hr>
+
+  <h2 style="color: rgb(240, 25, 193);">Beams</h2>
+  <h4>Take the following steps</h4>
+  <ul>
+    <li>Select beam from navbar </li>
+    <li>Inpute the requested values for beam</li>
+    <img align='center' src="../static/profile_pics/beam_config.png" alt="">
+    <li>Check the beam for instability when applying the supports</li>
+    <li>Example of final results:</li>
+    <img align='center' src="../static/profile_pics/beam_results.png" alt="">
+  </ul>
+  
+  <hr>
+  <h2 style="color: rgb(240, 25, 193);">Columns</h2>
+  <ul>
+    <li> Column height:</li>
+    <p>Input the heigh for the Column</p>
+    <li>Supports:</li>
+    <p>Apply the support type for each end</p>
+    <li>Submit</li>
+    <p>By submitting the analyses you will see critical loads and mode shapes</p>
+    <li>Example of final results:</li>
+    <img align='center' src="../static/profile_pics/column_results.png" alt="">
+  </ul>
+</div>  
+
+<br>
+  <p> This page is constantly improving, our focus is on making engineering a fun experience. </p>
+
+{% endblock %}

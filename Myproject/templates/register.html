@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<link href="static/css/signin.css" rel="stylesheet">
+<div>      
+<main class="form-signin">
+    <form method="POST">
+        
+        {# This hidden_tag is a CSRF security feature. #}
+        {{ form.hidden_tag() }}
+        <h1 class="h3 mb-3 fw-normal">Register for free</h1>
+        <label for="inputEmail" class="visually-hidden">{{ form.email.label }}</label>
+            {{ form.email(class="form-control") }}
+        <label for="inputPassword" class="visually-hidden">{{ form.username.label }}</label>
+        {{ form.username(class="form-control")}}
+        
+        <label for="inputPassword" class="visually-hidden">{{ form.password.label }}</label>
+        {{ form.password(class="form-control")}}
+            
+        <label for="inputPassword" class="visually-hidden">{{ form.pass_confirm.label }}</label>
+            {{ form.pass_confirm(class="form-control")}}
+        {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
+    </form>
+</div>
+
+{% endblock %}

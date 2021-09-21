@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{% block content %}
+<center>
+  <div  class="jumbotron">
+    <h1 style="color: purple;">Engineering Is Fun</h1>
+    <h4>** Just Click on 'Register' and start analyzing your systems ** </h4>
+    <h4 style="color: blue">** FREE ** </h4>
+    {% if blog_posts.items|count>1%}
+    <span style="font-size: small;">Members: {{users|count}}</span>
+    <span style="font-size: small;">, Performed Analyses: {{blog_posts.items|count}} </span>
+    {% endif %}
+  </div>
+</center>
+
+  <div class="container">
+
+    {# Go through each blog post #}
+    
+    {% for post in blog_posts.items %}
+
+    <div class="card" >
+
+      <div class="card-body">
+        
+        
+    <!-- This section is for beam ------------------------------------------------------------------------------------------------ -->
+        {% for bm in Beams %}
+        {% if  post.id==bm.blog_post_id %} 
+        
+                    <h2><a class="card-title" href="  {{ url_for('beam_posts.blog_post', blog_post_id=post.id) }}"> {{post.title}} </a></h2>
+                    <a href="{{ url_for('users.user_posts', username=post.author.username) }}">Written By: {{ post.author.username }}</a>
+                    <p> {{ post.date.strftime('%Y-%m-%d') }}</p>
+                    <p class="card-text">{{ post.text[:100] }}...</p>
+                    
+                    <!-- # From Beam Model -->
+                    <div style="color: blue;" align='left' class="input-group input-group-sm mb-3">
+                      <ul>
+                        <img src="data:image/png;base64,{{bm.beam_img}}" \> 
+                        <img src="data:image/png;base64,{{bm.result_img}}"\>
+                      </ul>
+                      <!-- TAble for properties -->
+                      <table class="table", style="color: black;">
+                        <thead>
+                          <tr>
+                            <th scope="col">Length ({{bm.unit[8:10]}})</th>
+                            <th scope="col">Moment of Inertia ({{bm.unit[8:10]}}^4)</th>
+                            <th scope="col">Modulus of Elasticity ({{bm.unit[3:7]}}/{{bm.unit[8:10]}}^2)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            
+                            <td>{{bm.Node2 -bm.Node1}}</td>
+                            <td>{{bm.I}}</td>
+                            <td>{{bm.E}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- Table for results -->
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            
+                            <th scope="col"> On Beam</th>
+                            
+                            <th scope="col">Shear ({{bm.unit[3:7]}})</th>
+                            <th scope="col">Moment({{bm.unit[3:7]}}.{{bm.unit[8:10]}})</th>
+                            <th scope="col">Displacement({{bm.unit[8:10]}})</th>
+                            <th scope="col">R1({{bm.unit[3:7]}})</th>
+                            <th scope="col">R2({{bm.unit[3:7]}})</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">0</th>
+                            <td>{{bm.shear0L}}</td>
+                            <td>{{bm.moment0L}}</td>
+                            <td>{{bm.disp0L}}</td>
+                            <td>{{bm.R1}}</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">L/2</th>
+                            <td>{{bm.shear05L}}</td>
+                            <td>{{bm.moment05L}}</td>
+                            <td>{{bm.disp05L}}</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            
+                            <th scope="row">L</th>
+                            
+                            <td>{{bm.shearL}}</td>
+                            <td>{{bm.momentL}}</td>
+                            <td>{{bm.dispL}}</td>
+                            <td></td>
+                            <td>{{bm.R2}}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Max</th>
+                            
+                            <td>{{bm.max_shear}}</td>
+                            <td>{{bm.max_moment}}</td>
+                            <td>{{bm.max_disp}} @ x= {{bm.disp_max_x}} </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            
+                            <th scope="row">Min</th>
+                            
+                            <td>{{bm.min_shear}}</td>
+                            <td>{{bm.min_moment}}</td>
+                            <td>{{bm.min_disp}} @ x= {{bm.disp_min_x}}</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                      <a href="{{ url_for('beam_posts.blog_post', blog_post_id=post.id) }}" class="btn btn-primary">More ...</a>
+                    </div>
+                    
+                    
+                </div>
+                </div>
+            {% endif %}
+          {% endfor%}
+    
+
+<!-- This section is for column____________________________________________________________________________________________________-->
+          {% for col in Columns %}
+          {% if  post.id==col.blog_post_id %} 
+              <h2><a class="card-title" href="  {{ url_for('column_posts.blog_post', blog_post_id=post.id) }}"> {{post.title}} </a></h2>
+              <a href="{{ url_for('users.user_posts', username=post.author.username) }}">Written By: {{ post.author.username }}</a>
+              <p> {{ post.date.strftime('%Y-%m-%d') }}</p>
+              <p class="card-text">{{ post.text[:100] }}...</p>
+
+                  <!-- # From Beam Model -->
+                  <div style="color: blue;"align='left' class="input-group input-group-sm mb-3">
+                    <br>
+                      <p><img src="data:image/png;base64,{{col.result_img}}"\></p>
+                    <!-- TAble for properties -->
+                    <table class="table", style="color: black;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Length ({{col.unit[8:10]}})</th>
+                          <th scope="col">Moment of Inertia ({{col.unit[8:10]}}^4)</th>
+                          <th scope="col">Modulus of Elasticity ({{col.unit[3:7]}}/{{col.unit[8:10]}}^2)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          
+                          <td>{{col.Node2 -col.Node1}}</td>
+                          <td>{{col.I}}</td>
+                          <td>{{col.E}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- Table for results -->
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col"> K factor </th>
+                          <th scope="col">Buckling load, 1st mode ({{col.unit[3:7]}})</th>
+                          <th scope="col">Buckling load, 2nd mode ({{col.unit[3:7]}})</th>
+                          <th scope="col">Buckling load, 3rd mode({{col.unit[3:7]}})</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{col.K_factor}}</td>
+                          <td>{{col.buckling_load1}}</td>
+                          <td>{{col.buckling_load2}}</td>
+                          <td>{{col.buckling_load3}}</td>
+                          <td></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      
+                      
+                      
+                      
+                      <a href="{{ url_for('column_posts.blog_post', blog_post_id=post.id) }}" class="btn btn-primary">More ...</a>
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+    
+      
+            {% endif %}
+          {% endfor %}
+
+    
+<!-- This section is for TRUSS ____________________________________________________________________________________________________-->
+          {% for rus in Trusses %}
+            {% if  post.id==rus.blog_post_id %} 
+            <h2><a class="card-title" href="  {{ url_for('truss_posts.blog_post', blog_post_id=post.id) }}"> {{post.title}} </a></h2>
+            <a href="{{ url_for('users.user_posts', username=post.author.username) }}">Written By: {{ post.author.username }}</a>
+            <p> {{ post.date.strftime('%Y-%m-%d') }}</p>
+            <p class="card-text">{{ post.text[:100] }}...</p>
+
+                  <!-- # From Beam Model -->
+                  <div style="color: blue;"align='left' class="input-group input-group-sm mb-3">
+                    <br>
+                      <p><img src="data:image/png;base64,{{rus.result_img}}"\></p>
+                    <!-- TAble for properties -->
+                    <table class="table", style="color: black;">
+                      <thead>
+                        <tr>
+                          
+                          
+                          <th scope="col">Length ({{rus.unit[8:10]}})</th>
+                          <th scope="col">Truss Height ({{rus.unit[8:10]}})</th>
+                          <th scope="col">Cross-Section (A) ({{rus.unit[8:10]}}^2)</th>
+                          <th scope="col">Modulus of Elasticity ({{rus.unit[3:7]}}/{{rus.unit[8:10]}}^2)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{rus.numSpans}} @ {{rus.span_width}}</td>
+                          <td>{{rus.truss_height}}</td>
+                          <td>{{rus.A}}</td>
+                          <td>{{rus.E}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- Table for results -->
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Reactions (X,Y) ({{rus.unit[3:7]}})</th>
+                          <th scope="col">Max/Min Disp X @ node ({{rus.unit[8:10]}})</th>
+                          <th scope="col">Max/Min Disp Y @ node({{rus.unit[8:10]}})</th>
+                          <th scope="col">Max/Min load @ memebr ({{rus.unit[3:7]}})</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td> R1x={{rus.R1x}} , R1y={{rus.R1y}}</td>
+                          <td>{{rus.maxDispx}} @ node # {{rus.maxDispNodex}}</td>
+                          <td>{{rus.maxDispy}} @ node # {{rus.maxDispNodey}}</td>
+                          <td>{{rus.maxForce}} @ Elem #{{rus.maxForceElem}}</td>
+                          
+                        </tr>
+                        <tr>
+                          <td> R2x={{rus.R2x}} , R2y={{rus.R2y}}</td>
+                          <td>{{rus.minDispx}} @ node # {{rus.minDispNodex}}</td>
+                          <td>{{rus.minDispy}} @ node # {{rus.minDispNodey}}</td>
+                          <td>{{rus.minForce}} @ Elem # {{rus.minForceElem}}</td>
+
+                        </tr>
+                        </tbody>
+                      </table>
+                      
+                      
+                      
+                      
+                      <a href="{{ url_for('truss_posts.blog_post', blog_post_id=post.id) }}" class="btn btn-primary">More ... </a>
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+    
+      
+            {% endif %}
+          {% endfor %}
+
+
+
+          
+
+    {% endfor %}
+    
+<!-- This section is for page numbering -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% for page_num in blog_posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if blog_posts.page == page_num %}
+        <li class="page-item disabled">
+          <a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </nav>
+ {% endblock %}
+        
