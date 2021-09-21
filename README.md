@@ -8,3 +8,15 @@
 <a href="https://beam026.herokuapp.com/">Structural Analysis Web</a>
 
 
+
+###  Truss Analysis 
+
+<img src='https://github.com/yasser64b/Flask-Web-Development/blob/main/Myproject/static/profile_pics/truss_results.png'>
+
+### Column Analysis
+
+<img src='https://github.com/yasser64b/Flask-Web-Development/blob/main/Myproject/static/profile_pics/column_results.png'>
+
+### Beam Analysis
+
+<img src='https://github.com/yasser64b/Flask-Web-Development/blob/main/Myproject/static/profile_pics/beam_results.png'>
